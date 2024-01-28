@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title %}blog{% endblock title %}
+{% block content %}
+
+
+<main id="main">
+
+    <section class="single-post-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9 post-content" data-aos="fade-up">
+
+            <!-- ======= Single Post Content ======= -->
+            <div class="single-post">
+           <div class="post-meta"><span class="date">{{blog_categories}}</span> <span class="mx-1">&bullet;</span> <span>{{blog_model.blog_creation_date }}</span></div>
+              <h1 class="mb-5">{{blog_model.blog_title}}</h1>
+              <figure class="my-4">
+              </figure>
+              <p>{{blog_model.blog_text}}</p>
+            </div><!-- End Single Post Content -->
+
+              <!-- ======= Comments ======= -->
+            <div class="comments">
+              <h5 class="comment-title py-4"> Comments</h5>
+              {% for comment in comment %}
+              <div class="comment d-flex mb-4">
+                <div class="flex-grow-1 ms-2 ms-sm-3">
+                  <div class="comment-meta d-flex align-items-baseline">
+                    <h6 class="me-2">{{comment.name}}</h6>
+                    <span class="text-muted">{{comment.blog_comment_date}}</span>
+                  </div>
+                  <div class="comment-body">
+                    {{comment.blog_comment}}
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      REPLIES
+                    </button>
+                  </div>
+
+                  <div class="comment-replies bg-light p-3 mt-3 rounded">
+                    <h6 class="comment-replies-title mb-4 text-muted text-uppercase">replies</h6>
+                     {% for sub_comment in sub_comment %}
+                    <div class="reply d-flex mb-4">
+                      <div class="flex-grow-1 ms-2 ms-sm-3">
+                        <div class="reply-meta d-flex align-items-baseline">
+                          <h6 class="mb-0 me-2">{{sub_comment.name}}</h6>
+                          <span class="text-muted">{{sub_comment.blog_comment_date}}</span>
+                        </div>
+                        <div class="reply-body">
+                          {{sub_comment.blog_comment}}
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                    <!--<div class="reply d-flex">
+                      <div class="flex-grow-1 ms-2 ms-sm-3">
+                        <div class="reply-meta d-flex align-items-baseline">
+                          <h6 class="mb-0 me-2">James Parsons</h6>
+                          <span class="text-muted">1d</span>
+                        </div>
+                        <div class="reply-body">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dolore sed eos sapiente, praesentium.
+                        </div>
+                      </div>
+                    </div>-->
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div><!-- End Comments -->
+            
+            <!-- ======= Comments Form ======= -->
+            <div class="row justify-content-center mt-5">
+
+              <div class="col-lg-12">
+                <h5 class="comment-title">Leave a Comment</h5>
+                {% include "message.html" %}
+                <div class="row">
+                  <div class="col-lg-6 mb-3">
+                    <form method="post" action="{{url_for('blog_comment')}}">
+                      <input type="hidden" name="blog_id" value="{{ blog_model.id }}"/>
+                    <label for="comment-name">Name</label>
+                    <input type="text" class="form-control" name="name" required id="comment-name" placeholder="Enter your name">
+                  </div>
+                  <div class="col-lg-6 mb-3">
+                    <label for="comment-email">Email</label>
+                    <input type="text" class="form-control" name="email" required id="comment-email" placeholder="Enter your email">
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label for="comment-message">Message</label>
+
+                    <textarea class="form-control" name="message" required id="comment-message" placeholder="Enter your name" cols="30" rows="10"></textarea>
+                  </div>
+                  <div class="col-12">
+                    <input type="submit" class="btn btn-primary" value="Post comment">
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div><!-- End Comments Form -->
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main><!-- End #main -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Replies comment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <!-- ======= Comments Form ======= -->
+         <div class="row justify-content-center mt-5">
+
+          <div class="col-lg-12">
+            <h5 class="comment-title">Replies a Comment</h5>
+            {% include "message.html" %}
+            <div class="row">
+              <div class="col-lg-6 mb-3">
+                <form method="post" action="{{url_for('sub_comment')}}">
+                  <input type="hidden" name="blog_id" value="{{ blog_model.id }}"/>
+                  <input type="hidden" name="comment_id" value="{{ comment.id }}"/>
+                <label for="comment-name">Name</label>
+                <input type="text" class="form-control" name="name" required id="comment-name" placeholder="Enter your name">
+              </div>
+              <div class="col-lg-6 mb-3">
+                <label for="comment-email">Email</label>
+                <input type="text" class="form-control" name="email" required id="comment-email" placeholder="Enter your email">
+              </div>
+              <div class="col-12 mb-3">
+                <label for="comment-message">Message</label>
+
+                <textarea class="form-control" name="message" required id="comment-message" placeholder="Enter your name" cols="30" rows="10"></textarea>
+              </div>
+              <div class="col-12">
+                <input type="submit" class="btn btn-primary" value="Post comment">
+              </div>
+            </form>
+            </div>
+          </div>
+        </div><!-- End Comments Form -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

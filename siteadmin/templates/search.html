@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block title %}Search{% endblock %}
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+    
+    <div class="page-header">
+    <div class="row">
+    <div class="col-md-6">
+    <h3 class="page-title mb-0">Dashboard</h3>
+    </div>
+    <div class="col-md-6">
+    <ul class="breadcrumb mb-0 p-0 float-right">
+    <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i> Home</a></li>
+    <li class="breadcrumb-item"><span>Dashboard</span></li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    {% include "message.html" %}
+    <div class="row">
+        <div class="col-lg-12">
+        <div class="card">
+        <div class="card-header">
+        <div class="row align-items-center">
+        <div class="col-sm-6">
+          <form method='get' action="{{url_for('filtes')}}">
+              <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                <select class="custom-select mr-sm-2" name="fquery" id="inlineFormCustomSelect">
+                  {% for i in data %}
+                  <option selected>Filter...</option>
+                  <option value="{{i.end_year}}">{{i.end_year}}</option>
+                              <option value="{{i.sector}}">{{i.sector}}</option>
+                              <option value="{{i.topic}}">{{i.topic}}</option>
+                              <option value="{{i.region}}">{{i.region}}</option>
+                              <option value="{{i.country}}">{{i.country}}</option>
+                              <option value="{{i.source}}">{{i.source}}</option>
+                              <option value="{{i.pestle}}">{{i.pestle}}</option>
+                  {% endfor%}
+                </select>
+                </div>	
+               <div class="col-auto my-1">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                  <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                </div>
+                </div>
+                <div class="col-auto my-1">
+                <button type="submit" class="btn btn-primary  btn-sm mb-1">Go</button>
+                </div>
+              </div>
+              </form>
+        </div>
+        <div class="col-sm-6 text-sm-right">
+        <div class=" mt-sm-0 mt-2">
+        <button class="btn btn-outline-primary mr-2"><a href="{{url_for('insert_data')}}" class="ml-2 text-dark">Add new data</span></button>
+        <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" href="#">Action</a>
+        <div role="separator" class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Another action</a>
+        <div role="separator" class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="card-body">
+        <div class="table-responsive">
+        <table class="table custom-table">
+        <thead class="thead-light">
+        <tr>
+        <th>Sr. no. </th>
+        <th>End Year </th>
+        <th>Intensity</th>
+        <th>Sector</th>
+        <th>Topic</th>
+        <th>Insight</th>
+        <th>Url</th>
+        <th>Region</th>
+        <th>Start Year</th>
+        <th>Impact</th>
+        <th>Added</th>
+        <th>Published</th>
+        <th>Country</th>
+        <th>Relevance</th>
+        <th>Pestle</th>
+        <th>Source</th>
+        <th>Title</th>
+        <th>Likelihood</th>
+        <th class="text-right">Action</th>
+        </tr>
+        </thead>
+        {% for data in data %}
+        <tbody>
+        <tr>
+        <td>
+        <h2><a href="/">{{data.id}}<span></span></a></h2>
+        </td>
+        <td>{{data.end_year}}</td>
+        <td>{{data.intensity}}</td>
+        <td>{{data.sector}}</td>
+        <td>{{data.topic}}</td>
+        <td>{{data.insight}}</td>
+        <td><a href="{{data.url}}" target="blank">{{data.url}}</a></td>
+        <td>{{data.region}}</td>
+        <td>{{data.start_year}}</td>
+        <td>{{data.impact}}</td>
+        <td>{{data.added}}</td>
+        <td>{{data.published}}</td>
+        <td>{{data.country}}</td>
+        <td>{{data.relevance}}</td>
+        <td>{{data.pestle}}</td>
+        <td>{{data.source}}</td>
+        <td>{{data.title}}</td>
+        <td>{{data.likelihood}}</td>
+        <td class="text-right">
+        <a href="/update_data/{{data.id}}" class="btn btn-primary btn-sm mb-1">
+        <i class="far fa-edit"></i>
+        </a>
+        <button type="button" class="btn btn-danger  btn-sm mb-1" data-toggle="modal" data-target="#exampleModal">
+            <i class="far fa-trash-alt"></i>
+          </button>
+        <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Are you sure delete this data</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <a href="/delete_data/{{data.id}}" class="btn btn-primary text-dark">Data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+        </td>
+        </tr>
+        </tbody>
+        {% endfor %}
+        </table>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+{% endblock content %}
+

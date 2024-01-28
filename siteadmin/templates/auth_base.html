@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TechBlog - {% block title %}{% endblock title%}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+<link href="../../../../css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('siteadmin.static', filename='css/bootstrap.min.css') }}">
+
+<link rel="stylesheet" href="{{ url_for('siteadmin.static', filename='plugins/fontawesome/css/all.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('siteadmin.static', filename='lugins/fontawesome/css/fontawesome.min.css') }}">
+
+<link rel="stylesheet" href="{{ url_for('siteadmin.static', filename='css/style.css') }}">
+</head>
+<body>
+    {% block content %}{% endblock content %}
+<script>
+    const passwordField = document.querySelector("#passwordField")
+    const showPasswordToggle = document.querySelector(".showPasswordToggle");
+    const handleToggleInput = (e) => {
+        if (showPasswordToggle.textContent === "SHOW") {
+          showPasswordToggle.textContent = "HIDE";
+          passwordField.setAttribute("type", "text");
+        } else {
+          showPasswordToggle.textContent = "SHOW";
+          passwordField.setAttribute("type", "password");
+        }
+      };
+      showPasswordToggle.addEventListener("click", handleToggleInput);
+
+    $('.alert').alert()
+</script>
+    <script src="{{ url_for('siteadmin.static', filename='js/jquery-3.6.0.min.js') }}"></script>
+
+    <script src="{{ url_for('siteadmin.static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    
+    <script src="{{ url_for('siteadmin.static', filename='js/jquery.slimscroll.js') }}"></script>
+    
+    <script src="{{ url_for('siteadmin.static', filename='js/app.js') }}"></script>
+</body>
+</html>

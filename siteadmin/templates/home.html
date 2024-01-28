@@ -1,0 +1,195 @@
+﻿{% extends "admin_base.html" %}
+{% block title %}dashboard{% endblock %}
+{% block content %}
+		<div class="page-wrapper">
+		<div class="content container-fluid">
+		
+		<div class="page-header">
+		<div class="row">
+		<div class="col-md-6">
+		<h3 class="page-title mb-0">Dashboard</h3>
+		</div>
+		<div class="col-md-6">
+		<ul class="breadcrumb mb-0 p-0 float-right">
+		<li class="breadcrumb-item"><a href="/admin/dashboard"><i class="fas fa-home"></i> Home</a></li>
+		<li class="breadcrumb-item"><span>Dashboard</span></li>
+		</ul>
+		</div>
+		</div>
+		</div>
+        {% include "message.html" %}
+		<div class="row">
+			<div class="col-lg-12">
+			<div class="card">
+			<div class="card-header">
+			<div class="row align-items-center">
+			<div class="col-sm-6">	
+				<form method='get' action="{{url_for('siteadmin.blog_filte')}}">
+					<div class="form-row align-items-center">
+					  <div class="col-auto my-1">
+					  <select class="custom-select mr-sm-2" name="bquery" id="inlineFormCustomSelect">
+						<option selected>Choose Filter...</option>
+						<option value=""></option>
+						           {% for j in blog %}
+									<option value="{{j.writer_name}}">{{j.writer_name}}</option>
+									<option value="{{j.blog_title}}">{{j.blog_title}}</option>
+									<option value="{{j.blog_creation_date}}">{{j.blog_creation_date}}</option>
+									<option value="{{j.blog_read_count}}">{{j.blog_read_count}}</option>
+									{% endfor %}
+					  </select>
+					  </div>	
+					 <div class="col-auto my-1">
+					  <div class="custom-control custom-checkbox mr-sm-2">
+						<input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+					  </div>
+					  </div>
+					  <div class="col-auto my-1">
+					  <button type="submit" class="btn btn-primary  btn-sm mb-1">filter</button>
+					  </div>
+					</div>
+					</form>
+			</div>
+			<div class="col-sm-6 text-sm-right">
+			<div class=" mt-sm-0 mt-2">
+			<button class="btn btn-outline-primary mr-2"><a href="{{url_for('siteadmin.insert_blog')}}" class="ml-2 text-dark">Add new Blog</span></button>
+			<div class="dropdown-menu dropdown-menu-right">
+			<a class="dropdown-item" href="#"></a>
+			<div role="separator" class="dropdown-divider"></div>
+			<a class="dropdown-item" href="#"></a>
+			<div role="separator" class="dropdown-divider"></div>
+			<a class="dropdown-item" href="#"></a>
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			<div class="card-body">
+			<div class="table-responsive">
+			<table class="table custom-table">
+			<thead class="thead-light">
+			<tr>
+			<th>Blog id</th>
+			<th>Category id </th>
+			<th>Write Name</th>
+			<th>Blog Title</th>
+			<th>Blog Text</th>
+			<th>Blog Creation Date</th>
+			<th>Image Url</th>
+			<th>Blog Read Count</th>
+			<th class="text-right">Action</th>
+			</tr>
+			</thead>
+			{% if blog %}
+			{% for blog in blog %}
+			<tbody>
+			<tr>
+			<td>
+			<h2><a href="/"><span>{{blog.id}}</span></a></h2>
+			</td>
+			<td>{{blog.category_id}}</td>
+			<td>{{blog.writer_name}}</td>
+			<td>{{blog.blog_title|truncate(50)}}</td>
+			<td>{{blog.blog_text|truncate(50)}}</td>
+			<td>{{blog.blog_creation_date}}</td>
+			<td><a href="{{blog.image}}" target="blank">{{blog.image}}</a></td>
+			<td>{{blog.blog_read_count}}</td>
+			<td class="text-right">
+			<a href="{{url_for('siteadmin.update_blog', id=blog.id)}}" class="btn btn-primary btn-sm mb-1">
+			<i class="far fa-edit"></i>
+			</a>
+			<button type="button" class="btn btn-danger  btn-sm mb-1" data-toggle="modal" data-target="#exampleModal">
+				<i class="far fa-trash-alt"></i>
+			  </button>
+			<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">Are you sure delete this Blog</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				  <a href="{{url_for('siteadmin.delete_blog', id=blog.id)}}" class="btn btn-primary text-dark">Delete</a>
+				</div>
+			  </div>
+			</div>
+		  </div>
+			</td>
+			</tr>
+			</tbody>
+			{% endfor %}
+			{% endif %}
+			</table>
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>
+		<!--<div class="row">
+		<div class="col-lg-6 d-flex">
+		<div class="card flex-fill">
+		<div class="card-header">
+		<div class="row align-items-center">
+		<div class="col-auto">
+		<div class="page-title">
+		Relation of Topic and End year
+		</div>
+		</div>
+		<div class="col text-right">
+		<div class=" mt-sm-0 mt-2">
+		<button class="btn btn-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></button>
+		 <div class="dropdown-menu dropdown-menu-right">
+		<a class="dropdown-item" href="#"></a>
+		<div role="separator" class="dropdown-divider"></div>
+		<a class="dropdown-item" href="#"></a>
+		<div role="separator" class="dropdown-divider"></div>
+		<a class="dropdown-item" href="#"></a>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		<div class="card-body">
+			<canvas id="lineChart"></canvas>
+		</div>
+		</div>
+		</div>
+		<div class="col-lg-6 d-flex">
+		<div class="card flex-fill">
+		<div class="card-header">
+		<div class="row align-items-center">
+		<div class="col-auto">
+		<div class="page-title">
+		Pie chart for
+		</div>
+		</div>
+		<div class="col text-right">
+		<div class=" mt-sm-0 mt-2">
+		<button class="btn btn-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></button>
+		<div class="dropdown-menu dropdown-menu-right">
+		<a class="dropdown-item" href="#"></a>
+		<div role="separator" class="dropdown-divider"></div>
+		<a class="dropdown-item" href="#"></a>
+		<div role="separator" class="dropdown-divider"></div>
+		<a class="dropdown-item" href="#"></a>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		<div class="card-body">
+		<canvas id="pieChart"></canvas>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>-->
+	</div>
+	</div>
+	
+{% endblock content %}
+

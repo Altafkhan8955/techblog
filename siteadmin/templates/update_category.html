@@ -1,0 +1,57 @@
+{% extends "admin_base.html" %}
+{% block title %}edit category {% endblock title %}
+{% block content %}
+<div class="page-wrapper">
+<div class="content container-fluid">
+<div class="page-header">
+<div class="row">
+<div class="col-lg-6 col-md-6 col-sm-6 col-12">
+<h5 class="text-uppercase mb-0 mt-0 page-title">Edit Category</h5>
+</div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-12">
+<ul class="breadcrumb float-right p-0 mb-0">
+<li class="breadcrumb-item"><a href="/admin/dashboard"><i class="fas fa-home"></i> Home</a></li>
+<li class="breadcrumb-item"><a href="#">Pages</a></li>
+<li class="breadcrumb-item"><span>Edit Category</span></li>
+</ul>
+</div>
+</div>
+</div>
+{% include "message.html" %}
+<div class="page-content">
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+<div class="card">
+<div class="card-header">
+<div class="card-title">Edit Category</div>
+</div>
+<div class="card-body">
+<div class="row">
+<div class="col-lg-6 col-md-6 col-sm-6 col-12">
+<form method="post" action="{{url_for('siteadmin.update_category',id=category.category_id)}}">
+<div class="form-group">
+    <label>Category Name</label>
+    <input type="text" class="form-control" value="{{category.category_name}}" name="category_name" placeholder="Enter category new name" required>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+<div class="form-group text-center custom-mt-form-group">
+<button class="btn btn-primary mr-2" type="submit">Save</button>
+<a href="/" class="btn btn-secondary" type="reset">Cancel</a>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
+{% endblock content %}

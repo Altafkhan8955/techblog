@@ -1,0 +1,9 @@
+{% with msg = get_flashed_messages(with_categories=True) %}
+{% if msg %}
+{% for category, message in msg %}
+<div class="alert alert-{{category}}" >
+    <strong>{{message}}</strong>
+</div> 
+{% endfor %}
+{% endif %}
+{% endwith %}

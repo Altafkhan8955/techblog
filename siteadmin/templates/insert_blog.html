@@ -1,0 +1,77 @@
+{% extends "admin_base.html" %}
+{% block title %}insert blog {% endblock title %}
+{% block content %}
+<div class="page-wrapper">
+<div class="content container-fluid">
+<div class="page-header">
+<div class="row">
+<div class="col-lg-6 col-md-6 col-sm-6 col-12">
+<h5 class="text-uppercase mb-0 mt-0 page-title">Insert Blog</h5>
+</div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-12">
+<ul class="breadcrumb float-right p-0 mb-0">
+<li class="breadcrumb-item"><a href="/admin/dashboard"><i class="fas fa-home"></i> Home</a></li>
+<li class="breadcrumb-item"><a href="#">Pages</a></li>
+<li class="breadcrumb-item"><span>Insert Blog</span></li>
+</ul>
+</div>
+</div>
+</div>
+{% include "message.html" %}
+<div class="page-content">
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+<div class="card">
+<div class="card-header">
+<div class="card-title">Insert Blog</div>
+</div>
+<div class="card-body">
+<div class="row">
+<div class="col-lg-6 col-md-6 col-sm-6 col-12">
+<form method="post" action="{{url_for('siteadmin.insert_blog')}}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>Blog Category</label>
+        <select class="form-control select" name='category_id'>
+            {% for a_category in all_category_id %}
+            <option value = "{{ a_category }}"> {{ all_category_name[loop.index0] }}</option>
+         {% endfor %}
+        </select>
+        </div>
+<div class="form-group">
+<label>Write Name</label>
+<input type="year" class="form-control" name="writer_name" name="username" required>
+</div>
+<div class="form-group">
+    <label>Blog Title</label>
+    <input type="text" class="form-control" name="blog_title" name="username" required>
+    </div>
+<div class="form-group">
+<label>Blog Text</label>
+<textarea type="text" class="form-control" id="exampleFormControlTextarea1" row="6" name="blog_text" required></textarea>
+</div>
+<div class="form-group">
+    <label>themnail Images</label>
+    <input type="file" name="file" accept="image/*" class="form-control">
+    </div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+<div class="form-group text-center custom-mt-form-group">
+<button class="btn btn-primary mr-2" type="submit">Save</button>
+<a href="/" class="btn btn-secondary" type="reset">Cancel</a>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
+{% endblock content %}
