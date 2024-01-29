@@ -9,8 +9,7 @@ UPLOAD_FOLDER = 'blogwebsite\static'
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'altafkhantechblog'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@localhost/blog_db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@localhost/blog_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATION'] = True
 app.config['UPLOADS_To'] = 'uploads'
 
